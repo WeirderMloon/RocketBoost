@@ -661,7 +661,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4581959275002222671, guid: c35a6542c3a18404db7ae48a7e3423a8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -32.28
+      value: -29.25
       objectReference: {fileID: 0}
     - target: {fileID: 4581959275002222671, guid: c35a6542c3a18404db7ae48a7e3423a8, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2734,7 +2734,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3104107775099537248, guid: e9b7fef5274713b4d818fe4c0e2627fd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -32.28
+      value: -29.19
       objectReference: {fileID: 0}
     - target: {fileID: 3104107775099537248, guid: e9b7fef5274713b4d818fe4c0e2627fd, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3161,7 +3161,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2894813700085287988, guid: 5bcb80fb38441f3409de83764f8bb9ae, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -32.28
+      value: -29.25
       objectReference: {fileID: 0}
     - target: {fileID: 2894813700085287988, guid: 5bcb80fb38441f3409de83764f8bb9ae, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4001,6 +4001,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4022,9 +4024,11 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1001 &3680468981792122273
 PrefabInstance:
@@ -4627,7 +4631,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7929405534642115807, guid: 8c6cfca3bf4e5c74cbb0faa9e19e9063, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -32.28
+      value: -29.25
       objectReference: {fileID: 0}
     - target: {fileID: 7929405534642115807, guid: 8c6cfca3bf4e5c74cbb0faa9e19e9063, type: 3}
       propertyPath: m_LocalPosition.y
