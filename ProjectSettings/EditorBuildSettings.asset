@@ -12,13 +12,22 @@ EditorBuildSettings:
     path: Assets/Scenes/LevelSelect.unity
     guid: e4719f621ebd9434eb925b8dcc8a741d
   - enabled: 1
-    path: Assets/Scenes/LevelOne.unity
+    path: Assets/Scenes/Level one starter.unity
+    guid: 44ec25285a8e4934a823ad64c994dbf9
+  - enabled: 1
+    path: Assets/Scenes/Lvl2 starter.unity
+    guid: 0617b9e51849cb440846a5b4f3ad71ed
+  - enabled: 1
+    path: Assets/Scenes/Lvl three starter.unity
+    guid: bea9023da946cc148ab87c07db4f1644
+  - enabled: 1
+    path: Assets/Scenes/Level one (over).unity
     guid: 2eb40effe115c614ca55a0388e8241b2
   - enabled: 1
-    path: Assets/Scenes/Tunnel.unity
+    path: Assets/Scenes/Level two (tunnel).unity
     guid: 3ee3d5ee2f92b8941a0738d1ad19895f
   - enabled: 1
-    path: Assets/Scenes/Pistons.unity
+    path: Assets/Scenes/Level three (pistons).unity
     guid: 335d0fffb8e592d45ad7277740bf0df6
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
