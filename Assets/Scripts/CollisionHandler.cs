@@ -1,16 +1,18 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class CollisionHandler : MonoBehaviour
 {   
+    [Header("Level Settings")]
     [SerializeField] float levelLoadDelay = 2f;
+
+    [Header("Audio & VFX")]
     [SerializeField] AudioClip successSFX;
     [SerializeField] AudioClip crashSFX;
     [SerializeField] ParticleSystem successParticles;
     [SerializeField] ParticleSystem crashParticles;
-    
+
     AudioSource audioSource;
 
     bool isControllable = true;
@@ -35,23 +37,33 @@ public class CollisionHandler : MonoBehaviour
         else if (Keyboard.current.cKey.wasPressedThisFrame)
         {
             isCollidable = !isCollidable;
+            Debug.Log("Collisions toggled: " + isCollidable);
         }
     }
 
     private void OnCollisionEnter(Collision other) 
     {
-        if (!isControllable || !isCollidable) { return; }
-        
+        if (!isControllable || !isCollidable) 
+            return;
+
         switch (other.gameObject.tag)
         {
             case "Friendly":
-                Debug.Log("Everything is looking good!");
+                // Safe objects (Ground, platforms, walls, etc.)
                 break;
+
             case "Finish":
                 StartSuccessSequence();
                 break;
-            default:
+
+            case "Hazard":
+                // Dangerous objects (spikes, enemies, lava, etc.)
                 StartCrashSequence();
+                break;
+
+            default:
+                // Optional: You can make unknown objects safe or deadly
+                // StartCrashSequence();     // ← Commented out so you don't die on ground
                 break;
         }
     }
@@ -62,7 +74,9 @@ public class CollisionHandler : MonoBehaviour
         audioSource.Stop();
         audioSource.PlayOneShot(successSFX);
         successParticles.Play();
+        
         GetComponent<Movement>().enabled = false;
+        
         Invoke("LoadNextLevel", levelLoadDelay);
     }
 
@@ -72,7 +86,9 @@ public class CollisionHandler : MonoBehaviour
         audioSource.Stop();
         audioSource.PlayOneShot(crashSFX);
         crashParticles.Play();
+        
         GetComponent<Movement>().enabled = false;
+        
         Invoke("ReloadLevel", levelLoadDelay);
     }
 
@@ -80,12 +96,12 @@ public class CollisionHandler : MonoBehaviour
     {
         int currentScene = SceneManager.GetActiveScene().buildIndex;
         int nextScene = currentScene + 1;
-        
+
         if (nextScene == SceneManager.sceneCountInBuildSettings)
         {
             nextScene = 0;
         }
-        
+
         SceneManager.LoadScene(nextScene);
     }
 
@@ -94,5 +110,4 @@ public class CollisionHandler : MonoBehaviour
         int currentScene = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentScene);
     }
-
 }

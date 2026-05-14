@@ -1,116 +1,45 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(CharacterController))]
 public class Movement : MonoBehaviour
-{   
-    [SerializeField] InputAction thrust;
-    [SerializeField] InputAction rotation;
-    [SerializeField] float thrustStrength = 1500f;
-    [SerializeField] float rotationStrength = 250f;
-    [SerializeField] AudioClip mainEngineSFX;
-    [SerializeField] ParticleSystem mainEngineParticles;
-    [SerializeField] ParticleSystem rightThrustParticles;
-    [SerializeField] ParticleSystem leftThrustParticles;
+{
+    [SerializeField] private float moveSpeed = 6f;
+    [SerializeField] private float gravity = 20f;     // Better gravity value
 
-    Rigidbody rb;
-    AudioSource audioSource;
+    private CharacterController characterController;
+    private Vector2 moveInput;
+    private Vector3 movementVelocity;
 
-    private void Start() 
+    void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        audioSource = GetComponent<AudioSource>();    
+        characterController = GetComponent<CharacterController>();
     }
 
-    private void OnEnable() 
+    void Update()
     {
-        thrust.Enable(); 
-        rotation.Enable();
-    }
+        // === Left / Right Movement (A & D) ===
+        movementVelocity.x = moveInput.x * moveSpeed;
+        
+        // Keep forward movement at 0 (no automatic forward)
+        movementVelocity.z = 0f;
 
-    private void FixedUpdate()
-    {
-        ProcessThrust();
-        ProcessRotation();
-    }
-
-    private void ProcessThrust()
-    {
-        if (thrust.IsPressed())
+        // Apply gravity
+        if (characterController.isGrounded)
         {
-            StartThrusting();
+            movementVelocity.y = -2f;           // Small negative value when grounded
         }
         else
         {
-            StopThrusting();
+            movementVelocity.y -= gravity * Time.deltaTime;
         }
+
+        // Move the character
+        characterController.Move(movementVelocity * Time.deltaTime);
     }
 
-    private void StartThrusting()
+    void OnMove(InputValue value)
     {
-        rb.AddRelativeForce(Vector3.up * thrustStrength * Time.fixedDeltaTime);
-        if (!audioSource.isPlaying)
-        {
-            audioSource.PlayOneShot(mainEngineSFX);
-        }
-        if (!mainEngineParticles.isPlaying)
-        {
-            mainEngineParticles.Play();
-        }
-    }
-
-    private void StopThrusting()
-    {
-        audioSource.Stop();
-        mainEngineParticles.Stop();
-    }
-
-    private void ProcessRotation()
-    {
-        float rotationInput = rotation.ReadValue<float>();
-        if(rotationInput < 0)
-        {
-            RotateRight();
-        }
-        else if(rotationInput > 0)
-        {
-            RotateLeft();
-        }
-        else
-        {
-            StopRotating();
-        }
-    }
-
-    private void RotateRight()
-    {
-        ApplyRotation(rotationStrength);
-        if (!rightThrustParticles.isPlaying)
-        {
-            leftThrustParticles.Stop();
-            rightThrustParticles.Play();
-        }
-    }
-
-    private void RotateLeft()
-    {
-        ApplyRotation(-rotationStrength);
-        if (!leftThrustParticles.isPlaying)
-        {
-            rightThrustParticles.Stop();
-            leftThrustParticles.Play();
-        }
-    }
-
-    private void StopRotating()
-    {
-        rightThrustParticles.Stop();
-        leftThrustParticles.Stop();
-    }
-
-    private void ApplyRotation(float rotationThisFrame)
-    {
-        rb.freezeRotation = true;
-        transform.Rotate(Vector3.forward * rotationThisFrame * Time.fixedDeltaTime);
-        rb.freezeRotation = false;
+        moveInput = value.Get<Vector2>();
     }
 }
